@@ -1,0 +1,181 @@
+\documentclass[12pt]{article}
+%Gummi|065|=)
+\title{\textbf{Miralens}}
+\author{Matin Ardakani\\Quan Do\\Josh English\\Luke Horgan\\Sarada Symonds}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Problem Statement}
+Thanks to popular science fiction film franchises such as Star Trek, Star Wars, and Iron Man, holograms have captured the public’s imagination for decades and remain an area of active research. This project was started with the goal of creating a holographic 3D display in order to render digitally processed images. While current user experiences rely heavily on flat electronic displays, the physical world is made of three dimensional objects.
+
+\subsection{Solution}
+Our solution is to create a volumetric full color 3D display that renders digital images in physical space for the users to view without any additional apparatus like glasses or headsets. We plan to enable the users to interact with the 3D image with nothing but their hands, in real time if possible.
+
+To illustrate the feasibility of this goal, we need to complete 3 milestones. First, we need to create a full-color projecting apparatus with a refresh rate in the thousands of hertz. Second, we need to focus the frames from the high-speed projector onto an oscillating transparent disk to manifest a 3D image. Third, we need to address the human interaction aspect of the device by letting users manipulate the hologram with nothing but their hands. In addition to the incorporation of gesture recognition hardware, this will involve projecting the image from the display volume into free space.
+
+Given the short amount of time to deliver this project, complexity of the design solution, the inevitable rise of unexpected problems, and the wide range of scope covered by each milestone and their own separate applications in the market, we set the first milestone, the development of a high frame rate projector, to be our primary objective for this capstone project. The successful completion of the first milestone is a good indicator of the feasibility of our design. As time permits, we will try to integrate hologram creation and user interaction functionality into our final prototype in the order mentioned earlier.
+
+\subsection{A Note on the Word Hologram}
+Explanation here
+
+\subsection{Existing Designs and Patents}
+There have been several attempts to reproduce the types of holographic images seen in popular science fiction, yet none have become widely adopted and research is still ongoing. One popular approach to 3D volumetric displays is to project light onto particles normally unseen by the human eye, and there are several patents registered with the United States Patent Office related to this method. For instance, patent US20120274907A1 describes a 3D volumetric display which projects light onto projected electromagnetic particles. 
+
+Another patented 3D volumetric display is the Illumyn 3-D Display, developed by researchers at University of Rochester, which projects an image onto cesium vapor waves using lasers. However, this approach requires a container full of particles on which to project the light, meaning the effect is not truly holographic. Furthermore, researchers using this method were not able to produce larger, high quality images since they were relying on lasers to color each particle. 
+
+Other research has focused on using high speed projectors to improve the image quality, which is the approach we've decided to pursue. Since projectors are not as precise as lasers, these types of volumetric displays use dynamic surfaces in order to create a 3D effect. Currently, off-the-shelf projectors do not run at speeds anywhere near high enough create the 3D vision effect.
+
+Researchers at the University of Southern California were able to reprogram a DLP projector in order to get a higher frame rate and create a 3D image using a rotating surface, but could only project in binary greyscale. The University of Tokyo was able to develop a high speed, greyscale projector for use in dynamic mapping, but they have not yet applied this technology to 3D volumetric displays. Amongst our contributions to this research will be the development of a 3D volumetric display that uses RGB light to create high resolution images.
+
+\subsection{Impact}
+As this project contains three distinct deliverables, we would be remiss if we did not address the impact of each of these parts separately. First, let us consider potential applications for a high frequency full spectrum projector. Obviously, this technology could be used in place of any high frequency projector which lacks color. This would enable devices which use this type of projector to accomplish their objectives and take advantage of color. While certain applications require only black and white projections, many other applications would benefit from color. Specifically, applications where human interaction is required, or where humans must distinguish between points in a projection would benefit from the use of color.
+
+Additional uses for a high frequency full spectrum projector include usage for high variability dynamic projection mapping. Current applications for dynamic projection mapping are used across industries, and can even be found in performance art. There are limitations to the current technology however. Because full spectrum projectors are commercially available at 120 Hz, in situations where the projection must be mapped to a fast moving or highly-variable target, these projectors fail. For example, our projectors could be used to map images to high-velocity athletes or performers. While our high frequency projector can map to these targets, the resolution of the projected image could be compromised. This is a potential area for future work. 
+
+Second, let us consider the potential uses of the volumetric display. The applications of a hologram are potentially wide reaching, but we think the most convincing applications for this technology exist for pre-imaging and a virtual reality/augmented reality replacement. A doctor or hospital could use this technology to practice surgical procedures before entering the operating room.  Additionally, this technology could be scaled up and improved upon to produce a holographic room. When inside this room, entire environments could be simulated with this hologram technology, giving an unprecedented level of immersion in the space of digital computing. 
+
+Finally, let us discuss the impact of integrating this hologram technology with user interaction. Again, the most convincing use of this technology is in the realms of pre-imaging and VR. Instead of merely seeing a holographic image, users would be able to interact with the digital holographic world. This would allow user interaction with the digital world in a 3D environment, rather than a 2D one. Instead of designing parts with the use of CAD software, engineers could enter a design studio and interact with a holographic rendering of their design. Additionally, students or designers could test the interaction and viability of their designs in real time.
+
+\section{Design}
+\subsection{Principle of Operation}
+A CRT monitor works by scanning, with great rapidity, a bright electron beam over a screen. By convention, these scan lines are drawn from left to right across the screen, and then from top to bottom. At no point is the entire screen illuminated, nor even a single scan line bright across its entire width. The electron beam illuminates only points on the screen, and it is our persistence of vision which is responsible for rendering in our minds a cogent image. That is, where only points of light flash before us, we perceive a picture as though it were painted on canvas. If we could process visual input at 30 thousand frames per second, this trick would not work, and we would see only a progression of colored dots.
+
+The working principle of a volumetric display is the same, but instead of flashing 1-dimensional pixels in lines to trace a 2D image, we instead flash a series of 2-dimensional cross sections to trace a 3D image, and we rely again on our persistence of vision stitch these cross sections together. Our proposed design may be considered in three physical parts, each of which is itself a substantial technological challenge. First, we shall require a projector capable of illuminating cross sections at the requisite frame rate, which is an order of magnitude (and then some) beyond what any commercial projector is capable of. Second, we need a “dynamic volume” - a spinning or oscillating projection surface - onto which the projector can render these cross sections. Third, in order to enable interactivity, we need a passive mechanism which will relay the image from projection volume into open space, where it may be freely “touched.”
+
+Custom software will need to be written to generate cross sections from 3D geometry and to facilitate interaction, although off-the-shelf packages are available for gesture recognition and will be incorporated in our final design. In the following sections, we will treat of the three physical sub-components of the volumetric display system, as well as the software systems that will be responsible for its display content and control.
+
+\subsection{High Frame Rate Projector}
+Perhaps the most critical component of our design is the high frame rate projector. Prior work, notably that of Jones et al at USC, utilized projector technology based on digital micromirror devices, or DMDs, to produce images at up to 5760 Hz. A digital micromirror device is exactly what it sounds like – a board which consists of hundreds of thousands of microscopic mirrors, micrometers on a side, arranged in a fine grid. Each mirror may be individually adjusted to reflect light from an incident bulb back onto a screen for display, or away from the projection surface (and onto a heatsink) so it is not seen.
+
+It is theoretically possible to switch these mirrors at rates of up to 300 kHz, enabling the projection of patterns at up to 300 thousand frames per second. Practically speaking, though, DMDs come with a number of drawbacks. First, they are very expensive. Texas Instruments’ flagship model, which is to the best of our knowledge the most capable DMD on the market, retails for nearly xxxx1000 (without the comparably pricey proprietary controller) and can “only” switch at 32.5 kHz. Models in our price range switch at around a sixth that speed. Second, the binary switching speeds are misleading. Highly detailed monochrome (ie black and white) images may be projected at these rates, but 8-bit grayscale can be projected at only an eighth as fast, since each grayscale pixel is encoded in eight separate mirror rotations. Full color requires either a further 3x reduction in frame-rate to accommodate projection of separate red, green, and blue channels, or a 3x increase in price to purchase three independent DMDs.
+
+We propose instead a novel system which will effectively convert the extremely high spatial resolution of today’s LCD displays into a far higher “temporal resolution”, or framerate, than they would ordinarily be capable of producing. A 4K monitor is capable of displaying 3840x2160=8294400 pixels. A standard DVD, by contrast, reproduces content at 720x480=345600 pixels. A 4K monitor can therefore, hypothetically, show 24 DVD resolution images simultaneously on a single screen. If the monitor refreshes at an industry standard 144Hz, then in a single second it can show 144x24=3456 DVD resolution frames in one second. The issue, of course, is that these frames will appear on a grid of 24 virtual “sub-screens”, all in parallel. Somehow, we want to combine all these images so they appear in one place.
+
+Figure XXX
+
+It isn’t immediately obvious how this may be accomplished using a conventional monitor. Imagine instead, though, that we want to combine the images from 24 separate projectors onto a single screen. Distortion effects notwithstanding, this is a simple matter of pointing all of them at the same target. Now, as a practical matter, digital video projectors are quite expensive, and reasonably affordable commercial models only output 60Hz, which means we would need at least 50 of them. Controlling these 50 separate projectors would be a herculean task, requiring dozens of computers and an enormous amount of power, to say nothing of the physical space that they would occupy. Indeed, we would certainly be better off using the DMDs. But what if we could take our single high resolution monitor and convert it into 24 mini DVD-resolution projectors?
+
+It turns out we can. By scaffolding optical wedge prisms in front of the display, we can redirect the light from each sub-screen onto a single projection surface, as shown in Figure [Blah-Blah]. A wedge prism can take incoming light and direct it at an arbitrary angle determined by its construction. More precisely, incoming rays are deflected by an angle theta according to the relation [d=(n-a)a], as shown in figure [blah-blah 2].
+
+Figure, Figure
+
+Unfortunately, simply placing a prism in front of a monitor will not turn it into a projector, as prisms do not focus light. The prisms will therefore be designed such that all the sub-screens converge on a single condenser lens, which will focus all the incoming light onto one screen. A nagging problem remains, though. As the monitor is on all at once, each of the 24 sub-screens are simultaneously illuminated, and that means that sets of 24 frames will be projected on top of each other, with the set changing 144 times per second. Instead, we want each of the 24 individual frames to flash in sequence, but to achieve this we need to be able to selectively turn one frame on at a time.
+
+LCD screens do not produce their own light, so the image they produce is invisible to the eye if the backlight is removed.  This is generally considered a shortcoming of the technology, and the principle issue OLED displays seek to solve.  For our purposes, however, this shortcoming is actually a very useful property.  If we remove the monitor’s stock backlight and replace it with a grid of 24 individually controlled lights which can selectively illuminate the area behind a single prism, then as long as we can control them with enough precision, we can coerce the monitor into projecting only a single frame at a time.  LEDs can switch on and off several of orders of magnitude faster than 4000 Hz, so this is not an issue.
+
+\subsection{Display Volume}
+With the goal of rendering holographic image in mind, we would need a display, or a medium for light to refract upon, in order for the projected 3D object to become visible to viewers. First proposed by Luzy and Dupuis in 1912,21 the volumetric display has been an active area of research in the field of 3D display, to present 3D volume or animated images in a given space. 
+
+There are two types of volumetric display, static and dynamic. Static display usually involves the use of gas and a laser for illumination, and has found its place in various entertainment venues, concerts, and festivals around the world. The major downsides are the cost involved and the technical difficulties in controlling multiple light sources to render 3D volumes.21
+
+Dynamic or swept-volume displays, on the other hand, make use of a rapidly moving display surface, and rely on persistence of vision to create a 3D object from a series of different perspectives. This technology has yet to be adopted widely, but shows a lot of promise as only one projector is needed to create 3D volumes. Thus, in order to render realistic 3D images on a limited budget, the use of a swept-volume display is a preferable choice to integrate with our high frame rate projector.
+
+The simplest and most common design for a swept-volume display is a rotating mirror angled at 45 degrees, with the high speed projector directly on top.
+
+Figure XX
+
+The mirror will be attached to a motor that rotates persistently at at least 900 RPM in order to give a 15 Hz refresh rate, which is the rate required to generate a reliable 3D persistence of vision effect.12, 17 Furthermore, since we are relying on persistence of vision to display our 3D object, each 2D image that we are projecting needs to appear at the correct rotating mirror’s position. In another words, we need to keep the mirror spinning at 15 Hz while constantly checking what direction the mirror is facing, to know what to display at that particular position to trick the viewers into seeing a static 3D object. 
+
+Luckily, motor control and feedback is a well-studied problem in automotive applications,15 and there are many online tutorials on integrating a DC motor equipped with rotary encoder, hall effect sensor and dedicated driver with an off-the-shelf microcontroller to achieve what we desire. 
+
+Basically, a reading from the hall effect sensor will tell us when the motor has reached the reference position zero, where the sensor is located, while a reading from the rotary encoder specifies the number of rotating steps the motor has taken. Combining the two will allow us to know the position of the motor, hence the position of the rotating mirror and the direction it is facing.
+
+On the other hand, a motor driver is a collection of current amplifiers that takes the low current control signal from a microcontroller and convert it into a higher-current signal needed to drive the motor. Then, the motor speed can be adjusted and kept constant with pulse-width modulation.
+
+A distinguishing feature of hologram as advocated by and depicted in many sci-fi Hollywood movies is the visible, yet intangible element. A swept-volume display only satisfies the first requirement. We want to take this a step further and introduce intangibility, to enhance users’ immersion in our 3D display technology. This can be achieved with the addition of two parabolic mirrors.
+
+Inspired by an educational toy called a mirascope, we have came up with a design that will allow our swept-volume display to function as intended while seeming to appear in “mid-air.”
+
+A mirascope is a toy made of two parabolic mirrors, working together to project a small object placed at the bottom to the top, creating an optical illusion that can be described as a mirage. The working principle and physics behind the mirascope can be seen in the diagram below.
+
+Figure XX
+
+Thus, if we keep our projector setup as it is, and simply put our rotating mirror inside the mirascope, at the bottom, we will get an illusion, a mirage, or basically a holographic 3D images on the top of the mirascope, which viewers can observe and directly interact with. 
+
+The remaining challenge would be to get a mirascope large enough to contain our rotating mirror. An off-the-shelf mirascope is only 6-9 inches in diameter, and so we have decided to manufacture our own, to produce one that is at least 22 inches to produce a larger optical illusion for an eye-catching proof of concept and demo.
+We have discovered that the reflective surface inside a parabolic mirror can be produced with a cheap space blanket or aluminum foil, and the hardcover can simply be 3D-printed. There are again many tutorials online with detailed instructions on how to do so. 
+
+\subsection{Software}
+The 3D models used in film visual effects and video games really do contain three full dimensions of information. Fundamentally, they are meshes of points, where each point has an x, y, and z coordinate, and it will be useful, for our purposes, to think of them that way. Rendering is the process whereby these points are “projected” onto a 2D surface by some mathematical transformation for viewing.
+
+There are many free, high quality software packages that facilitate the modeling and rendering of 3D geometries. Unfortunately, although the models are truly 3D in an information theoretic sense, the graphics which these packages ultimately render are just 2D representations of the data, no more “holographic” than paintings on a canvas. We have, for instance, made extensive use of Blender for pre-visualization purposes. Figure X shows a render of Blender’s stock 3D model, Suzanne, a mammalian riff on the famous Utah teapot. Suzanne is 3D, but one could hang Figure X on a wall with a tack.
+
+To show Suzanne in the three dimensions she deserves, and of which she is indeed comprised, we must, somewhat ironically, start by going even “flatter” than the 2D renders we are used to from film and video games. Our screen, in the course of a complete rotation, “spins out” a three dimensional volume. If we imagine that Suzanne is placed magically within the domain of the spinning screen, then at each point in time the screen will intersect a different 2D cross section of her head. If the screen is spinning fast enough (about 20 rotations per second) and our projector can produce on the screen just the right cross section for the position the screen is passing through at any given moment, then we will produce the illusion that Suzanne is really there, floating in the volume.
+
+For our initial proof of concept, Blender will actually be more than sufficient. It contains a boolean intersection modifier which can be used to calculate the intersection of one 3D model with any other. By producing a physically accurate 3D model of our screen, we can therefore compute the necessary cross sections, samples of which are shown for the Suzanne model in Figure X. This process is computationally intensive because Blender is not optimized for real-time graphics. This will not be a problem initially because we can simply pre-render the cross sections. Stitching them together into the necessary grid and playing them back can be accomplished in a few lines of Python using a library like PIL, issues of synchronization (discussed below) notwithstanding.
+
+Who wants a static hologram, though? What if we want to be able to transform the mesh in real time? What if we want to change its size, its color, its orientation, or even its shape in real time? Conceptually, the idea of rendering cross sections remains the same, but we will need to use a high performance game engine, optimized for speed, instead of a program like Blender, which is optimized for movie-style graphics. There are countless quality game engines available for free. Some well known examples are Unity and Unreal Engine. Out of the box, unsurprisingly, these do not support rendering grids of cross sections, but they also come with fully featured scripting engines, so we are confident that they can be suitably adapted.
+
+\subsection{Synchronization}
+In order for the device to work without lags or hiccups, three main components of the system needs to be in sync: 
+xx1) The HFR projector’s image coming from the LCD monitor
+xx2) The motor of the Dynamic Volume
+xx3) The monitor’s custom LED backlights.
+
+Imagine that the projector is creating frames at 4320Hz, and the motor from the dynamic volume is spinning at 15 Hz. This means that in 1 second, we will have 4320 perspective 2D images of a single 3D object or scene. Meanwhile, since the motor driving the mirror(projection screen) is rotating at 15 Hz, during its one full rotation, the Mirror(projection screen) will receive 288 images from the projector to display. A rotation covers 360 degrees, so at every 360/288 = 1.25 degrees, we will be showing a new image and  once the motor reaches 15 rotations, then the projector has finished displaying 4320 perspective images.
+
+This is only possible by keeping everything at the mentioned constant speed while knowing exactly the rotary position of the motor, as well as the exact time of new frame appearance.  
+To detect the exact time a new frame appears from the graphics card of the host computer, we plan to leverage the VGA’s Vsync signal. 
+
+Vsync is a term usually heard in gaming. When running a video game, the graphics card is in charge of creating new frames inside its frame buffer for the monitor to display. The graphics card has two sets of buffers: front which is the frame the monitor sees, and back which what the graphics card actively writes to. When the host finishes generating the frame, the graphics card swaps the contents of the front and the back frames. During this process, if the buffer swap happens when the screen is in the middle of drawing the front buffer, the content of the screen appears “shattered”.  That is to say, half the screen represents the previous frame while the other half displays the new frame. The Vsync signal from the monitor remedies this situation by notifying the host when a new frame is starting, therefore preventing the graphics card from swapping the buffers.
+
+To detect the exact position of the volume’s motor, a rotary encoder and a hall effect sensor to convert the position of the motor into digital or analogue signal, will also be required.
+Using the information described above, the microcontroller board keeps the system in sync by controlling:
+The rotational speed of the volume’s motor through a motor driver and PWM.
+The position of the current flashing backlight LED by encoding the grid position and sending it to the LED control signal.
+The diagram below shows how each module of the system will work together:
+
+Figure XX
+
+\subsection{Gesture Tracking}
+Twenty years ago, controlling a computer with your hands was the stuff of science fiction. These days, however, there are literally dozens of off-the-shelf software/hardware packages that make detecting the orientation of a user’s hand almost as easy as detecting the position of a mouse. The most famous gesture tracker is probably Microsoft’s Kinect, which is a fantastic solution for tracking a user’s entire body. However, we are only interested in tracking the motion of their hands, and we need to do this with finer granularity than Kinect offers.
+
+The Leap Motion controller is a time-tested and affordable sensor which supplies precisely this functionality. Once we have written our real-time graphics software, we will use Leap’s API to enable gesture control of our model. Although this considerably enhances the “wow” factor of our project, it falls squarely in the category of “nice-to-have” since it is simple to implement and no other functionality depends on it.
+
+Figure
+
+\section{Implementation}
+The timeline for our project can be seen in the Gantt chart below:
+
+Figure xx
+
+As the image above shows, this project will be completed in 5 distinct stages. The longest stage is the proof of concept, which lasts from the middle of June to the beginning of December. This stage will allow our team to prototype and troubleshoot before work on the final product begins. This stage also occurs when our group does not have dedicated time to work on this project, so we will be spread out among various locations with various other commitments. 
+
+
+The proof of concept stage is broken into three subtasks: material acquisition, design, and construction. To complete the material acquisition task,  our team must order any parts necessary for the proof of concept and final product from manufacturers. To complete the design task, our team must finalize a design for the various subsystems of the proof of concept. These subsystems will be used in the final product as well. Finally, to complete the construction task, our team must collaborate to construct a working proof of concept. During this time, our team will also fabricate any necessary parts.
+
+The second stage of the project will be dedicated to producing the high frame rate projector. This stage starts in the new year, and should be completed halfway into February. Upon starting work on this stage, our hardware team will work on the backlight circuit, and our software team will work on creating a pre-rendered video of the object we wish to project. We anticipate the software will also create various scripts during this time which will help in the User I/O stage. To complete this stage, our team will also have to work on getting a master signal from the monitor and the optics of the projector. We expect the master signal to be about two weeks of work, and hope to complete the optics in a month.
+
+The third stage of our project will be the dynamic volume stage. This stage will start on the first of February and will end after two weeks. It is worth noting that this stage occurs at the same time we will be finishing the HFR projector, so time will be critical at this point. To complete the dynamic volume, we must complete the following subtasks: motor housing construction, master signal integration, fixing the screen to the motor, and pre-rendering a cross section video. We have scheduled one week for the housing construction and master signal integration. Once we have completed this step, we will be able to fix the screen to the motor and work on rendering a cross section video of the object we wish to project. We anticipate these tasks to take an additional week.
+
+The fourth stage of our project will be the mirascope stage. This stage starts midway through February and ends a month later. In this stage, we will be fixing the mirascope to our dynamic volume and may end up fabricating a larger mirascope. 
+
+The fifth stage of our project will be User I/O. This stage will allow a user to interact with our holographic image. The stage also starts midway through February, but does not end until the start of April. At this point, we hope to be done with the project. This is an optional stage, as our timeline to this point has been aggressive, and the feasibility of real-time image rendering has not yet been tested. In an ideal scenario, to complete the User I/O stage, our team needs to complete the following subtasks: writing real-time 3D cross section software, integrating the I/O device to the software, and writing the gesture control software. Upon beginning this stage, the software team will have already made progress on simpler cross section software, so we hope these can be repurposed for the real time application. If so, this stage could be completed ahead of time.
+
+\subsection{Division of Labor}
+To accurately and effectively divide tasks among the team members, the subtasks of our timeline stages should be partitioned among individuals or groups of individuals. This section details such a partitioning.
+
+For the proof of concept stage, the subtasks: material acquisition, design, and construction must be completed. Josh and Luke will handle material acquisition for this stage and throughout the entire project. The design of the proof of concept will be a collaborative process involving the entire group, but will be led by Quan and Luke. Construction will also be completed as a team, with the exception of Quan who is in California until the first of January. Team members near the capstone lab will be majority contributors to this task.
+
+For the HFR projector stage, the subtasks: backlight circuit, master signal sync, merging optics, and pre-rendered video must be completed. Josh, Luke, and Matin will be in charge of finishing the backlight circuit. Quan, Josh, and Luke will all contribute to the master signal sync task. Merging optics will be completed by Matin and Quan. Finally, the pre-rendered video will be completed by Josh, Luke, and Sarada.
+
+For the dynamic volume stage, the subtasks: motor housing, master signal integration, screen integration, and cross section video must be completed. Matin and Luke will complete motor housing. Quan and Josh will work on the master signal integration. We anticipate screen integration to be a team effort. Finally, Quan and Josh will work on the cross section video.
+
+For the mirascope stage, the subtasks: dynamic volume integration and mirascope fabrication must be completed. Dynamic volume integration will be a team effort, as this involves merging work from various members of the group. Mirascope fabrication will be completed by Matin and Josh. 
+
+As a reminder, the User I/O stage is optional, so this is a tentative division of tasks. For the User I/O stage, the subtasks: writing real-time 3D cross section software, I/O device integration, and writing I/O control software must be completed. Quan and Josh will complete the real-time software. The remaining subtasks are expected to be team efforts, but will be led by Quan, Josh, and Sarada.
+
+\subsection{Costs}
+The costs associated with our project can be found in the image below:
+
+xx table of costs
+
+This is a current estimate of costs for our project, and does not include the cost of materials needed for our proof of concept. Luckily, we are under budget, and have already acquired many of the materials needed for the proof of concept. We are satisfied with this preliminary budget as we expect it to be refined after we have completed our proof of concept. Additionally, we are pleased that our budget is safely under the dollarsxx 1000 limit. 
+
+\subsection{Conclusion}
+
+\end{document}
